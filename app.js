@@ -12,13 +12,22 @@ console.log('Command: ',command);
 console.log('Process: ',process.argv);
 console.log('Yargs: ',argv);
 
-if (command === 'add'){
-    notes.addNote(argv.title, argv.body);
-} else if (command === 'list'){
+if (command === 'add') {
+    var note = notes.addNote(argv.title, argv.body);
+    if(note) {
+        console.log('Note created successfully.');
+        console.log('---');
+        console.log(`Title: ${note.title}`);
+        console.log(`Body: ${note.body}`);
+    } else {
+        console.log("Title already in use.");
+    }
+
+} else if (command === 'list') {
     notes.getAll();
-} else if (command === 'remove'){
+} else if (command === 'remove') {
     notes.removeNote(argv.title);
-} else if (command === 'read'){
+} else if (command === 'read') {
     notes.getNote(argv.title);
 } else {
     console.log('Command not recognized');
